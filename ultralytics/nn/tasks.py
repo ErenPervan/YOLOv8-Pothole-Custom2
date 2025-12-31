@@ -4,8 +4,6 @@ import contextlib
 import pickle
 import re
 import types
-from ultralytics.nn.modules.block import SimAM  # Bizim eklediğimiz
-from ultralytics.nn.modules.conv import DSConv  # Bizim eklediğimiz
 from copy import deepcopy
 from pathlib import Path
 
@@ -71,6 +69,8 @@ from ultralytics.nn.modules import (
     YOLOESegment,
     v10Detect,
 )
+from ultralytics.nn.modules.block import SimAM  # Bizim eklediğimiz
+from ultralytics.nn.modules.conv import DSConv  # Bizim eklediğimiz
 from ultralytics.utils import DEFAULT_CFG_DICT, LOGGER, YAML, colorstr, emojis
 from ultralytics.utils.checks import check_requirements, check_suffix, check_yaml
 from ultralytics.utils.loss import (
