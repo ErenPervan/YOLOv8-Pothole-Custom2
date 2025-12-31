@@ -59,6 +59,7 @@ from .block import (
     ResNetLayer,
     SCDown,
     TorchVision,
+    SimAM,
 )
 from .conv import (
     CBAM,
@@ -68,6 +69,7 @@ from .conv import (
     Conv2,
     ConvTranspose,
     DWConv,
+    DSConv,
     DWConvTranspose2d,
     Focus,
     GhostConv,
@@ -140,6 +142,8 @@ __all__ = (
     "Concat",
     "ContrastiveHead",
     "Conv",
+    "DSConv", 
+    "SimAM",  
     "Conv2",
     "ConvTranspose",
     "DWConv",

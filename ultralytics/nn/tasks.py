@@ -4,6 +4,8 @@ import contextlib
 import pickle
 import re
 import types
+from ultralytics.nn.modules.block import SimAM  # Bizim eklediğimiz
+from ultralytics.nn.modules.conv import DSConv  # Bizim eklediğimiz
 from copy import deepcopy
 from pathlib import Path
 
@@ -1522,6 +1524,7 @@ def parse_model(d, ch, verbose=True):
             Classify,
             Conv,
             ConvTranspose,
+            DSConv,
             GhostConv,
             Bottleneck,
             GhostBottleneck,
@@ -1619,6 +1622,9 @@ def parse_model(d, ch, verbose=True):
                 n = 1
         elif m is ResNetLayer:
             c2 = args[1] if args[3] else args[1] * 4
+        elif m is SimAM:
+            c2 = ch[f]  # Kanal sayısı değişmez (input = output)
+            args = [*args]  # YAML'dan gelen e_lambda argümanını geçirir, c1/c2 eklemez.
         elif m is torch.nn.BatchNorm2d:
             args = [ch[f]]
         elif m is Concat:

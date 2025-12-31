@@ -2,7 +2,6 @@
 """Block modules."""
 
 from __future__ import annotations
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -1945,3 +1944,22 @@ class SAVPE(nn.Module):
         aggregated = score.transpose(-2, -3) @ x.reshape(B, self.c, C // self.c, -1).transpose(-1, -2)
 
         return F.normalize(aggregated.transpose(-2, -3).reshape(B, Q, -1), dim=-1, p=2)
+
+
+class SimAM(nn.Module):
+    """
+    SimAM: A Simple, Parameter-Free Attention Module for Convolutional Neural Networks.
+    Paper: https://proceedings.mlr.press/v139/yang21o.html
+    Makaledeki formül (Eq. 6) referans alınmıştır.
+    """
+    def __init__(self, e_lambda=1e-4):
+        super(SimAM, self).__init__()
+        self.activaton = nn.Sigmoid()
+        self.e_lambda = e_lambda
+
+    def forward(self, x):
+        b, c, h, w = x.size()
+        n = w * h - 1
+        x_minus_mu_square = (x - x.mean(dim=[2, 3], keepdim=True)).pow(2)
+        y = x_minus_mu_square / (4 * (x_minus_mu_square.sum(dim=[2, 3], keepdim=True) / n + self.e_lambda)) + 0.5
+        return x * self.activaton(y)
