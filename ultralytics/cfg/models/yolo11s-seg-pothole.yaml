@@ -18,7 +18,7 @@ activation: nn.GELU
 # YOLOv11.0s backbone
 backbone:
   # [from, repeats, module, args]
-  - [cite_start][-1, 1, Conv, [64, 3, 2]] # 0-P1/2 (İlk katman standart Conv olarak kalır [cite: 327])
+  - [cite_start][-1, 1, Conv, [64, 3, 2]] # 0-P1/2 (İlk katman standard Conv olarak kalır [cite: 327])
   - [cite_start][-1, 1, DSConv, [128, 3, 2]] # 1-P2/4 (Downsample ile DSConv) [cite: 323]
   - [-1, 2, C3k2, [256, False, 0.25]]
   - [-1, 1, DSConv, [256, 3, 2]] # 3-P3/8 (Downsample ile DSConv)
